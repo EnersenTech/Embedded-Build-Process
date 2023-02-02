@@ -38,7 +38,20 @@ $ arm-none-eabi-gcc -c -mcpu=cortex-m4 -mthumb main.c -o main.o
 ## Re-locatable object files analysis 
 By the end of compilation, you will get `main.o` file and `led.o` file. <br>
 With binary application from ARM GNU toolchain installed, you can analyze object files. <br>
+<img src="https://user-images.githubusercontent.com/109411385/216299680-d077a5cc-8107-4db8-a688-3070489ea390.png" width=600 heigth=400/>
+
 This is an important step before creating startup file.  <br>
+```
+$ arm-none-eabi-objdump.exe -D main.o > main_log
+$ arm-none-eabi-objdump.exe -D led.o > led_log
+```
+Create two object dump log files to analyze file elements (data, read-only, uninitialized data, comment, etc.) </br>
 
+You can see both object files has the same instruction address which will lead conflict when loaded to the devices.
+<img src="https://user-images.githubusercontent.com/109411385/216300793-46d972dc-ec94-444d-891f-dcd43f567ef0.png" width=600 height=auto/>
+<img src="https://user-images.githubusercontent.com/109411385/216300835-125c8f78-23eb-4da4-82a1-fb050ef79c45.png" width=600 height=auto/>
 
+The re-locatable object files .text address can be reinitialized by user. </br>
+We have to map these instructions with respect to the ARM processor memeory properly. </br>
+We will create an startup code file to handle this problem. 
 
