@@ -1,0 +1,177 @@
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+FLASH            0x00000000         0x00040000         xr
+SRAM             0x20000000         0x00008000         xrw
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+LOAD main.o
+LOAD gpio.o
+LOAD tm4c_startup.o
+                0x00000400                __max_heap_size = 0x400
+                0x00000200                __max_stack_size = 0x200
+
+.text           0x00000000      0x3c0
+                0x00000000                _text = .
+ *(.isr_vector)
+ .isr_vector    0x00000000      0x268 tm4c_startup.o
+                0x00000000                vectors
+ *(.text)
+ .text          0x00000268       0x74 main.o
+                0x00000268                Delay
+                0x00000290                main
+ .text          0x000002dc       0x7c gpio.o
+                0x000002dc                PortF_Init
+ .text          0x00000358       0x68 tm4c_startup.o
+                0x00000358                Reset_Handler
+                0x000003b8                PWM1Generator1_ISR
+                0x000003b8                ADC1Sequence2_ISR
+                0x000003b8                PWM0Generator1_ISR
+                0x000003b8                HardFault_Handler
+                0x000003b8                ADC1Sequence1_ISR
+                0x000003b8                SystemException_ISR
+                0x000003b8                QEI1_ISR
+                0x000003b8                SysTick_Handler
+                0x000003b8                PendSV_Handler
+                0x000003b8                NMI_Handler
+                0x000003b8                GPIOPortB_ISR
+                0x000003b8                PWM0Generator0_ISR
+                0x000003b8                UART2_ISR
+                0x000003b8                Timer2A_ISR
+                0x000003b8                WatchDogTimer_ISR
+                0x000003b8                Timer4A_ISR
+                0x000003b8                CAN1_ISR
+                0x000003b8                WideTimer4A_ISR
+                0x000003b8                CAN0_ISR
+                0x000003b8                UsageFault_Handler
+                0x000003b8                Hibernation_ISR
+                0x000003b8                UART1_ISR
+                0x000003b8                Timer5A_ISR
+                0x000003b8                UDMASoftware_ISR
+                0x000003b8                Timer1B_ISR
+                0x000003b8                GPIOPortF_ISR
+                0x000003b8                GPIOPortE_ISR
+                0x000003b8                SPI2_ISR
+                0x000003b8                PWM1Generator3_ISR
+                0x000003b8                SPI3_ISR
+                0x000003b8                ADC1Sequence0_ISR
+                0x000003b8                WideTimer1A_ISR
+                0x000003b8                I2C1_ISR
+                0x000003b8                Timer0B_ISR
+                0x000003b8                AnalogComparator0_ISR
+                0x000003b8                Timer4B_ISR
+                0x000003b8                I2C0_ISR
+                0x000003b8                Timer3A_ISR
+                0x000003b8                UART3_ISR
+                0x000003b8                WideTimer5A_ISR
+                0x000003b8                Default_Handler
+                0x000003b8                GPIOPortA_ISR
+                0x000003b8                WideTimer0A_ISR
+                0x000003b8                PWM1Generator2_ISR
+                0x000003b8                ADC0Sequence1_ISR
+                0x000003b8                UART7_ISR
+                0x000003b8                ADC1Sequence3_ISR
+                0x000003b8                WideTimer2B_ISR
+                0x000003b8                I2C3_ISR
+                0x000003b8                USB0_ISR
+                0x000003b8                WideTimer2A_ISR
+                0x000003b8                UART6_ISR
+                0x000003b8                WideTimer3A_ISR
+                0x000003b8                SVC_Handler
+                0x000003b8                ADC0Sequence0_ISR
+                0x000003b8                WideTimer4B_ISR
+                0x000003b8                ADC0Sequence2_ISR
+                0x000003b8                ADC0Sequence3_ISR
+                0x000003b8                SPI0_ISR
+                0x000003b8                Timer5B_ISR
+                0x000003b8                I2C2_ISR
+                0x000003b8                PWM0Generator2_ISR
+                0x000003b8                Timer2B_ISR
+                0x000003b8                FlashCtrl_ISR
+                0x000003b8                WideTimer0B_ISR
+                0x000003b8                Timer1A_ISR
+                0x000003b8                UART4_ISR
+                0x000003b8                Timer3B_ISR
+                0x000003b8                UART5_ISR
+                0x000003b8                WideTimer3B_ISR
+                0x000003b8                PWM1Fault_ISR
+                0x000003b8                GPIOPortD_ISR
+                0x000003b8                WideTimer1B_ISR
+                0x000003b8                WideTimer5B_ISR
+                0x000003b8                UDMAError_ISR
+                0x000003b8                SPI1_ISR
+                0x000003b8                PWM1Generator0_ISR
+                0x000003b8                PWM0Fault_ISR
+                0x000003b8                GPIOPortC_ISR
+                0x000003b8                SystemCtrl_ISR
+                0x000003b8                MemManageFault_Handler
+                0x000003b8                BusFault_Handler
+                0x000003b8                Timer0A_ISR
+                0x000003b8                DebugMonitor_Handler
+                0x000003b8                AnalogComparator1_ISR
+                0x000003b8                PWM0Generator3_ISR
+                0x000003b8                UART0_ISR
+                0x000003b8                QEI0_ISR
+ *(.rodata)
+                0x000003c0                . = ALIGN (0x4)
+                0x000003c0                _etext = .
+
+.glue_7         0x000003c0        0x0
+ .glue_7        0x000003c0        0x0 linker stubs
+
+.glue_7t        0x000003c0        0x0
+ .glue_7t       0x000003c0        0x0 linker stubs
+
+.vfp11_veneer   0x000003c0        0x0
+ .vfp11_veneer  0x000003c0        0x0 linker stubs
+
+.v4_bx          0x000003c0        0x0
+ .v4_bx         0x000003c0        0x0 linker stubs
+
+.iplt           0x000003c0        0x0
+ .iplt          0x000003c0        0x0 main.o
+
+.rel.dyn        0x000003c0        0x0
+ .rel.iplt      0x000003c0        0x0 main.o
+
+.data           0x20000000        0x0 load address 0x000003c0
+                0x20000000                _data = .
+ *(.data)
+ .data          0x20000000        0x0 main.o
+ .data          0x20000000        0x0 gpio.o
+ .data          0x20000000        0x0 tm4c_startup.o
+                0x20000000                . = ALIGN (0x4)
+                0x20000000                _edata = .
+
+.igot.plt       0x20000000        0x0 load address 0x000003c0
+ .igot.plt      0x20000000        0x0 main.o
+
+.bss            0x20000000        0x4 load address 0x000003c0
+                0x20000000                _bss = .
+ *(.bss)
+ .bss           0x20000000        0x4 main.o
+                0x20000000                Led
+ .bss           0x20000004        0x0 gpio.o
+ .bss           0x20000004        0x0 tm4c_startup.o
+                0x20000004                . = ALIGN (0x4)
+                0x20000004                _ebss = .
+OUTPUT(final.elf elf32-littlearm)
+LOAD linker stubs
+
+.comment        0x00000000       0x45
+ .comment       0x00000000       0x45 main.o
+                                 0x46 (size before relaxing)
+ .comment       0x00000045       0x46 gpio.o
+ .comment       0x00000045       0x46 tm4c_startup.o
+
+.ARM.attributes
+                0x00000000       0x2e
+ .ARM.attributes
+                0x00000000       0x2e main.o
+ .ARM.attributes
+                0x0000002e       0x2e gpio.o
+ .ARM.attributes
+                0x0000005c       0x2e tm4c_startup.o
